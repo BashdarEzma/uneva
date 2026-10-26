@@ -1,0 +1,164 @@
+/* Banner slider. Slides sit side-by-side in a flex track that slides
+   horizontally: the current slide shifts out to the left while the next slides
+   in from the right at the same time. */
+.cat-hero {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: #0a1018;
+  border-bottom: 1px solid var(--border);
+}
+
+.cat-track {
+  display: flex;
+  width: 100%;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.cat-slide {
+  position: relative;
+  flex: 0 0 100%;
+  width: 100%;
+  min-width: 0;
+  /* Banners are designed at 3790 × 1785 px — lock every slide to that aspect
+     ratio so the whole slider is exactly that shape at any width. */
+  aspect-ratio: 3790 / 1785;
+}
+
+.cat-media {
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* Fill the fixed-ratio slide edge-to-edge. Since banners are authored at the
+     same 3790 × 1785 ratio, cover shows the whole banner without cropping. */
+  object-fit: cover;
+  object-position: center;
+  background: #0a1018;
+  border: 0;
+}
+
+/* fit-cover opts a slide back into fill-and-crop when a banner should bleed to
+   the edges instead of showing whole. */
+.cat-slide.fit-cover .cat-media {
+  object-fit: cover;
+}
+
+/* Text-only fallback (a category with no banner image yet). */
+.cat-slide.no-media {
+  min-height: clamp(280px, 30vw, 440px);
+  background: linear-gradient(120deg, var(--brand-dark) 0%, var(--brand) 100%);
+  display: flex;
+  align-items: center;
+}
+
+.cat-content {
+  width: min(1200px, 100%);
+  margin: 0 auto;
+  padding: 44px clamp(24px, 5vw, 64px);
+  color: #fff;
+}
+
+.cat-eyebrow {
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--brand);
+  background: #fff;
+  padding: 6px 12px;
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+
+.cat-title {
+  margin: 0;
+  max-width: 18ch;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  line-height: 1.05;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.cat-subtitle {
+  margin: 16px 0 0;
+  max-width: 46ch;
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.cat-cta {
+  margin-top: 24px;
+}
+
+/* Slider controls */
+.cat-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 46px;
+  height: 46px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(15, 23, 38, 0.4);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  font-size: 1.8rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  /* True centering of the chevron icon inside the circle. */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.cat-arrow svg {
+  display: block;
+}
+.cat-arrow:hover {
+  background: rgba(15, 23, 38, 0.62);
+}
+.cat-arrow.left {
+  left: 16px;
+}
+.cat-arrow.right {
+  right: 16px;
+}
+
+.cat-dots {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  gap: 10px;
+}
+.cat-dots .dot {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  transition: background 0.2s ease, width 0.2s ease;
+}
+.cat-dots .dot.active {
+  width: 26px;
+  border-radius: 999px;
+  background: #fff;
+}
+
+@media (max-width: 640px) {
+  .cat-arrow {
+    width: 36px;
+    height: 36px;
+    font-size: 1.4rem;
+  }
+}

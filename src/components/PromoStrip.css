@@ -1,0 +1,26 @@
+.promo-banner {
+  background: linear-gradient(120deg, var(--brand-dark) 0%, var(--brand) 100%);
+  margin: 0;
+}
+.promo-banner-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding: 44px 24px;
+}
+.promo-banner h2 { margin: 0 0 8px; font-size: clamp(1.4rem, 3vw, 2rem); color: #fff; }
+.promo-banner p { margin: 0; color: rgba(255, 255, 255, 0.85); max-width: 520px; }
+
+.perks { background: var(--surface); border-bottom: 1px solid var(--border); }
+.perks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 18px;
+  padding: 28px 24px;
+}
+.perk { display: flex; align-items: center; gap: 14px; }
+.perk-icon { font-size: 1.6rem; }
+.perk strong { display: block; font-size: 0.95rem; }
+.perk small { color: var(--muted); font-size: 0.82rem; }

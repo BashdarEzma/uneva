@@ -1,0 +1,109 @@
+/* A wider container just for this showcase. The double-class selector beats
+   the base `.container { max-width: var(--max) }` rule. */
+.container.bento-container {
+  max-width: 1660px;
+}
+
+/* Explore Uneva bento — tall card left, two small cards top-right,
+   one wide card bottom-right (bottom row taller than the top row). */
+/* Column & row fractions chosen so each cell matches its image's aspect ratio
+   (cover then shows the whole image, no crop):
+     col1 = Floor-Standing AC 1157×1538 (0.75) — spans both rows
+     col2 = Washing Machine   1604×2103 (0.76)
+     col3 = TV                2792×2746 (1.02)
+     row2 = Wall-mounted AC   1417×713  (1.99) — spans col2+col3
+   The grid's own aspect-ratio makes the column and row units equal. */
+.explore-grid {
+  display: grid;
+  grid-template-columns: 1.426fr 0.763fr 1.017fr;
+  grid-template-rows: 1fr 0.896fr;
+  gap: 24px;
+  margin-top: 32px;
+  aspect-ratio: 3.206 / 1.896;
+}
+.explore-a {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+}
+.explore-b {
+  grid-column: 2;
+  grid-row: 1;
+}
+.explore-c {
+  grid-column: 3;
+  grid-row: 1;
+}
+.explore-d {
+  grid-column: 2 / span 2;
+  grid-row: 2;
+}
+
+.explore-card {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 26px;
+  text-decoration: none;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.explore-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.5s ease;
+}
+.explore-card::after {
+  /* Subtle brand tint that deepens on hover for click affordance. */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(var(--brand-rgb), 0);
+  transition: background 0.3s ease;
+}
+.explore-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 30px 60px rgba(15, 23, 42, 0.22);
+}
+.explore-card:hover img {
+  transform: scale(1.05);
+}
+.explore-card:hover::after {
+  background: rgba(var(--brand-rgb), 0.08);
+}
+
+@media (max-width: 860px) {
+  .explore-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    height: auto;
+  }
+  .explore-a,
+  .explore-b,
+  .explore-c,
+  .explore-d {
+    grid-column: auto;
+    grid-row: auto;
+    min-height: 260px;
+  }
+  .explore-a,
+  .explore-d {
+    grid-column: 1 / span 2;
+    min-height: 300px;
+  }
+}
+
+@media (max-width: 520px) {
+  .explore-grid {
+    grid-template-columns: 1fr;
+  }
+  .explore-a,
+  .explore-b,
+  .explore-c,
+  .explore-d {
+    grid-column: 1;
+  }
+}

@@ -1,0 +1,25 @@
+.newsletter-band {
+  background: linear-gradient(120deg, var(--brand-dark) 0%, var(--brand) 100%);
+}
+.newsletter-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 48px 24px;
+}
+.newsletter-inner h2 { margin: 0 0 8px; color: #fff; font-size: clamp(1.4rem, 3vw, 2rem); }
+.newsletter-inner p { margin: 0; color: rgba(255, 255, 255, 0.85); }
+.newsletter-band-form { display: flex; gap: 10px; flex-wrap: wrap; }
+.newsletter-band-form input {
+  min-width: 260px;
+  background: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 13px 20px;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+.newsletter-band-form input:focus { outline: 2px solid rgba(255, 255, 255, 0.6); }
+.newsletter-done { color: #fff; font-weight: 600; font-size: 1.05rem; margin: 0; }

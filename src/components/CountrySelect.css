@@ -1,0 +1,194 @@
+.country-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: #fff;
+  overflow-y: auto;
+  animation: countryIn 0.3s ease both;
+}
+@keyframes countryIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.country-modal {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 56px 24px 80px;
+}
+.country-logo {
+  display: block;
+  height: 52px;
+  width: auto;
+  margin: 0 auto 28px;
+  transform-origin: center;
+  animation: logoReveal 3.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+@keyframes logoReveal {
+  0% {
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+    transform: scale(0.92);
+    filter: blur(2px);
+  }
+  35% {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    transform: scale(1);
+    filter: blur(0);
+  }
+  80% {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    transform: scale(1);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 0;
+    clip-path: inset(0 0 0 0);
+    transform: scale(1.02);
+    filter: blur(0);
+  }
+}
+.country-title {
+  text-align: center;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0 0 10px;
+  color: var(--text);
+}
+.country-sub {
+  text-align: center;
+  color: var(--muted);
+  font-size: 1.05rem;
+  margin: 0 0 40px;
+}
+
+.region-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 160px));
+  justify-content: center;
+  gap: 18px;
+  margin-bottom: 40px;
+}
+.region-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.region-icon {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-width: 150px;
+  display: grid;
+  place-items: center;
+  font-size: 3.4rem;
+  background: var(--surface-2);
+  border: 2px solid transparent;
+  border-radius: 18px;
+  filter: grayscale(1) opacity(0.55);
+  transition: filter 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+}
+.region-globe {
+  display: inline-block;
+  line-height: 1;
+  animation: globeSpin 6s linear infinite;
+}
+@keyframes globeSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.region-name { font-size: 1.05rem; font-weight: 600; color: var(--text); }
+/* Hovering a region fully colors it — same highlight as the selected one. */
+.region-tab:hover .region-icon {
+  transform: translateY(-3px);
+  filter: none;
+  border-color: var(--brand);
+  background: rgba(var(--brand-rgb), 0.06);
+}
+.region-tab:hover .region-name { color: var(--brand); }
+
+/* The selected region is colored by default (when nothing is hovered). */
+.region-tab.active .region-icon {
+  filter: none;
+  border-color: var(--brand);
+  background: rgba(var(--brand-rgb), 0.06);
+}
+.region-tab.active .region-name { color: var(--brand); }
+
+/* While another region is hovered, the selected one reverts so only the
+   hovered region stays highlighted. */
+.region-tabs:hover .region-tab.active:not(:hover) .region-icon {
+  filter: grayscale(1) opacity(0.55);
+  border-color: transparent;
+  background: var(--surface-2);
+}
+.region-tabs:hover .region-tab.active:not(:hover) .region-name { color: var(--text); }
+
+.country-search {
+  position: relative;
+  max-width: 580px;
+  margin: 0 auto 44px;
+}
+.country-search .search-icon {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.95rem;
+  opacity: 0.55;
+}
+.country-search input {
+  width: 100%;
+  padding: 15px 22px 15px 48px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 1rem;
+  color: var(--text);
+  background: #fff;
+  box-shadow: 0 4px 18px rgba(10, 38, 90, 0.06);
+}
+.country-search input:focus { outline: none; border-color: var(--brand); }
+
+.country-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px 24px;
+}
+.country-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 14px;
+  background: none;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+.country-item:hover {
+  background: rgba(var(--brand-rgb), 0.08);
+  box-shadow: 0 6px 20px rgba(var(--brand-rgb), 0.28);
+  transform: translateY(-1px);
+}
+.country-item:hover .country-name { color: var(--brand); }
+.country-flag {
+  width: 30px;
+  height: 20px;
+  object-fit: cover;
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+  flex-shrink: 0;
+}
+.country-name { font-size: 1.05rem; color: var(--text); }
+.country-empty { grid-column: 1 / -1; text-align: center; color: var(--muted); padding: 30px 0; }
+
+@media (max-width: 760px) {
+  .region-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  .country-grid { grid-template-columns: 1fr; gap: 2px; }
+}

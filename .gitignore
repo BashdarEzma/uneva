@@ -1,0 +1,15 @@
+node_modules
+dist
+dist-ssr
+
+# Raw print-resolution originals (~3 GB) stay local; the web-optimized copies in
+# src/images-web/ are committed instead. logo.png is imported directly by the app.
+src/images/*
+!src/images/logo.png
+
+# Build archive
+uneva-site.zip
+*.local
+.vscode/*
+!.vscode/extensions.json
+.DS_Store

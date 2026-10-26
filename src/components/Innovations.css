@@ -1,0 +1,24 @@
+.innovations { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.innovation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 20px;
+}
+.innovation-card {
+  padding: 28px 24px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: transform 0.18s ease;
+}
+.innovation-card:hover { transform: translateY(-5px); }
+.innovation-icon {
+  width: 56px; height: 56px;
+  display: grid; place-items: center;
+  font-size: 1.6rem;
+  border-radius: 14px;
+  background: rgba(var(--brand-rgb), 0.12);
+  margin-bottom: 16px;
+}
+.innovation-card h3 { margin: 0 0 8px; font-size: 1.15rem; }
+.innovation-card p { margin: 0; color: var(--muted); font-size: 0.92rem; line-height: 1.55; }

@@ -1,0 +1,7 @@
+﻿/* AUTO-GENERATED from public/logo.png by scripts/extract-brand.ps1 â€” do not edit by hand. */
+/* Re-run "npm run theme" after replacing the logo to recolor the site. */
+:root {
+  --brand: #12A2A2;
+  --brand-rgb: 18, 162, 162;
+  --brand-dark: rgb(8, 73, 73);
+}

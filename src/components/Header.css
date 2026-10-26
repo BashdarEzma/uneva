@@ -1,0 +1,411 @@
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+/* Full-bleed header: override the centered .container so the logo sits in the
+   top-left corner and the country pill in the top-right. */
+.site-header .header-inner {
+  max-width: none;
+  padding: 0 28px;
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+}
+.logo { display: flex; align-items: center; gap: 10px; flex: 1; }
+.logo-img {
+  height: 38px;
+  width: auto;
+  display: block;
+  margin-left: 20px;
+  transform-origin: left center;
+  animation: headerLogoDraw 5s ease-in-out infinite;
+}
+@keyframes headerLogoDraw {
+  0% {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0.85;
+  }
+  40% {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+  75% {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+  100% {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0.85;
+  }
+}
+
+.main-nav { display: flex; align-items: center; justify-content: center; gap: 20px; flex: none; margin-left: 0; }
+.main-nav a {
+  position: relative;
+  display: inline-block;
+  color: var(--muted);
+  font-weight: 500;
+  font-size: 0.92rem;
+  white-space: nowrap;
+  transition: color 0.15s ease;
+  cursor: pointer;
+}
+/* Brand underline that grows in from the left on hover / active. */
+.main-nav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--brand);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.22s ease;
+}
+.main-nav a:hover, .main-nav a.active { color: var(--brand); }
+.nav-appliances a.hovering { color: var(--brand); }
+.main-nav a:hover::after,
+.main-nav a.active::after,
+.nav-appliances a.hovering::after {
+  transform: scaleX(1);
+}
+.mobile-cats { display: none; }
+.main-nav .nav-about {
+  font-weight: 600;
+  color: var(--text);
+}
+.main-nav .nav-about:hover, .main-nav .nav-about.active { color: var(--brand); }
+
+/* About Uneva dropdown */
+.nav-about-wrap { position: relative; }
+.about-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 190px;
+  margin-top: 10px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 8px;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  z-index: 60;
+}
+.about-menu::before { /* invisible bridge so the gap stays hoverable */
+  content: '';
+  position: absolute;
+  top: -10px; left: 0; right: 0;
+  height: 10px;
+}
+.nav-about-wrap:hover .about-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.about-menu a {
+  display: block;
+  padding: 9px 12px;
+  border-radius: 9px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+}
+.about-menu a:hover { background: rgba(var(--brand-rgb), 0.08); color: var(--brand); }
+
+.nav-dropdown { position: relative; }
+.dropdown-panel {
+  position: absolute;
+  top: 130%;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(160px, 1fr));
+  gap: 4px;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.nav-dropdown:hover .dropdown-panel {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+.dropdown-panel a {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 12px;
+  border-radius: 10px;
+}
+.dropdown-panel a:hover { background: rgba(var(--brand-rgb), 0.08); }
+.dropdown-panel strong { color: var(--text); font-size: 0.92rem; }
+.dropdown-panel small { color: var(--muted); font-size: 0.78rem; }
+
+/* ===== Mega menu ===== */
+.mega-panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  transform-origin: top center;
+  overflow: hidden;
+  /* Open immediately on hover with a quick, subtle unroll. */
+  animation: megaSlide 0.18s ease both;
+}
+@keyframes megaSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-18px);
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 900px;
+  }
+}
+/* content fades in right away with the panel */
+.mega-two {
+  animation: megaContent 0.16s ease both;
+}
+@keyframes megaContent {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* Two-pane menu: category list (left) + its types (right) */
+.mega-two {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 30px;
+  padding: 24px 24px 30px;
+}
+.mega-catlist {
+  list-style: none;
+  margin: 0;
+  padding: 0 24px 0 0;
+  border-right: 1px solid var(--border);
+}
+.mega-catlist li { margin: 0; }
+.mega-catlist a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: 9px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text);
+}
+.mega-catlist a:hover,
+.mega-catlist a.active {
+  background: rgba(var(--brand-rgb), 0.1);
+  color: var(--brand);
+}
+.mega-chev { opacity: 0.5; font-size: 1.1rem; }
+.mega-catlist a:hover .mega-chev,
+.mega-catlist a.active .mega-chev { opacity: 1; }
+
+.mega-types-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.mega-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 160px);
+  justify-content: start;
+  gap: 24px 16px;
+}
+.mega-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+  padding: 10px 6px;
+  border: none;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+  border-radius: 14px;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+.mega-tile:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 26px rgba(var(--brand-rgb), 0.35);
+}
+.mega-tile-img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 12px;
+}
+.mega-tile-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* show the whole product, like the reference grid */
+  padding: 10px;
+  box-sizing: border-box;
+  transition: transform 0.3s ease;
+}
+.mega-tile:hover .mega-tile-img img { transform: scale(1.08); }
+.mega-tile-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+@media (max-width: 1280px) {
+  .mega-grid { grid-template-columns: repeat(auto-fill, 104px); }
+}
+
+/* drill-down bar shown when a category is selected */
+.mega-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px 0;
+}
+.mega-back {
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 8px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.mega-back:hover { border-color: var(--brand); color: var(--brand); }
+.mega-current { font-size: 1.15rem; font-weight: 700; color: var(--text); }
+.mega-viewall { margin-left: auto; color: var(--brand); font-weight: 600; font-size: 0.9rem; }
+.mega-bar + .mega-grid { padding-top: 24px; }
+.mega-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  padding: 8px 4px;
+  border-radius: 10px;
+  transition: background 0.15s ease;
+}
+.mega-item {
+  transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+.mega-item:hover {
+  background: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 22px rgba(var(--brand-rgb), 0.35);
+}
+.mega-thumb {
+  width: 62px;
+  height: 62px;
+  display: grid;
+  place-items: center;
+  background: #fff;
+}
+.mega-thumb img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.mega-name {
+  font-size: 0.72rem;
+  color: var(--text);
+  font-weight: 500;
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.header-actions { display: flex; align-items: center; justify-content: flex-end; gap: 14px; flex: 1; }
+.country-pill {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+.country-pill:hover { border-color: var(--brand); }
+.country-pill-flag { width: 22px; height: 15px; object-fit: cover; border-radius: 2px; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08); display: block; }
+.country-pill-code { font-size: 0.82rem; font-weight: 700; color: var(--text); letter-spacing: 0.5px; }
+
+.hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 6px; }
+.hamburger span { width: 22px; height: 2px; background: var(--text); border-radius: 2px; }
+
+@media (max-width: 1100px) {
+  .hamburger { display: flex; }
+  .mega-panel { display: none; }
+  .nav-appliances { display: none; }
+  .mobile-cats { display: flex; flex-direction: column; gap: 18px; width: 100%; }
+  .main-nav {
+    position: absolute;
+    top: 68px; left: 0; right: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    background: var(--surface);
+    padding: 24px;
+    margin-left: 0;
+    border-bottom: 1px solid var(--border);
+    transform: translateY(-130%);
+    transition: transform 0.25s ease;
+  }
+  .main-nav.open { transform: translateY(0); }
+  .main-nav .nav-about {
+    margin-left: 0;
+    padding-left: 0;
+    border-left: none;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+    width: 100%;
+  }
+  .nav-about-wrap { width: 100%; }
+  /* On mobile the dropdown just stacks inline under About */
+  .about-menu {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    margin: 8px 0 0;
+    padding: 4px 0 0;
+    background: none;
+    border: none;
+    box-shadow: none;
+  }
+  .about-menu::before { display: none; }
+  .about-menu a { padding-left: 0; color: var(--muted); }
+}
